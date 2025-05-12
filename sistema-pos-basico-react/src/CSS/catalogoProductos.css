@@ -1,0 +1,128 @@
+/* src/CSS/CatalogoProductos.css */
+
+/* Reset básico y tipografía */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+  }
+  
+  /* Fondo de la app y centrado general */
+  body {
+    background-color: #f4f4f4;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    min-height: 100vh;
+    padding: 2rem 0;
+  }
+  
+  /* Contenedor principal */
+  .container {
+    width: 90%;
+    max-width: 1200px;
+    background-color: #fff;
+    padding: 1.5rem;
+    margin: auto;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+  }
+  
+  /* Botón de retorno */
+  .back-button {
+    position: absolute;
+    top: 1rem;
+    left: 1rem;
+    padding: 0.5rem 1rem;
+    background-color: #aef2f2;
+    color: #333;
+    text-decoration: none;
+    font-weight: bold;
+    border-radius: 4px;
+    transition: background-color 0.3s ease;
+  }
+  .back-button:hover {
+    background-color: #7fdada;
+  }
+  
+  /* Encabezado */
+  .header {
+    text-align: center;
+    margin-bottom: 1.5rem;
+    position: relative;
+  }
+  .header h1 {
+    font-size: 1.75rem;
+    font-weight: bold;
+    display: inline-block;
+    margin-right: 0.5rem;
+  }
+  .icon {
+    display: inline-block;
+    font-size: 2rem;
+    vertical-align: middle;
+  }
+  
+  /* Grupo de botones */
+  .buttons {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.75rem;
+    margin-bottom: 1.5rem;
+  }
+  .buttons button {
+    padding: 0.75rem 1.25rem;
+    font-weight: bold;
+    color: #333;
+    background-color: #aef2f2;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+  .buttons button:hover {
+    background-color: #7fdada;
+  }
+  
+  /* Tabla de productos */
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 1.5rem;
+    overflow-x: auto;
+    display: block;
+  }
+  th, td {
+    padding: 0.75rem;
+    text-align: center;
+    border: 1px solid #ddd;
+  }
+  th {
+    background-color: #333;
+    color: #fff;
+  }
+  td {
+    background-color: #fafafa;
+    color: #333;
+  }
+  
+  /* Fila seleccionada */
+  tr.selected {
+    background-color: #d1e7dd;
+  }
+  
+  /* Hover en filas */
+  tbody tr:hover {
+    background-color: #f1f1f1;
+  }
+  
+  /* Pie de página */
+  footer {
+    text-align: center;
+    margin-top: 1.5rem;
+    font-size: 0.9rem;
+    color: #666;
+  }
+  
