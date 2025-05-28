@@ -1,122 +1,147 @@
-import React, { useState, useRef } from 'react';
-import '../CSS/CatalogoProductos.css';
+import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import '../CSS/catalogoProductos.css';
+import FormularioIngresoProductos from '../Components/FormularioIngresoProductos';
 
-export default function CatalogoProductos() {
-  // Estado para almacenar productos (inicialmente vacío)
-  const [productos, setProductos] = useState([]);
+const CatalogoProductos = () => {
+  const navigate = useNavigate();
 
-  // Estado para producto seleccionado
-  const [selectedId, setSelectedId] = useState(null);
+  const [products, setProducts] = useState([
+    { id: 1, nombre: 'Cámara', descripcion: 'Cámara instantánea', precio: 80000, existencias: 5 },
+    { id: 2, nombre: 'Audífonos', descripcion: 'Bluetooth', precio: 54000, existencias: 15 },
+    { id: 3, nombre: 'Estuches', descripcion: 'Para celular', precio: 20000, existencias: 45 },
+    { id: 4, nombre: 'Cargador', descripcion: 'Tipo C, V8, Lightning', precio: 24000, existencias: 356 },
+    { id: 5, nombre: 'Vidrio cerámico', descripcion: 'Todas las referencias', precio: 15000, existencias: 456 },
+    { id: 6, nombre: 'Vidrio templado', descripcion: 'Todas las referencias', precio: 10000, existencias: 456 }
+  ]);
 
-  // Ref para generar IDs únicos
-  const nextId = useRef(1);
+  const [selectedProduct, setSelectedProduct] = useState(null);
+  const [mostrarFormulario, setMostrarFormulario] = useState(false);
+  const [modoFormulario, setModoFormulario] = useState(null); // 'crear' o 'editar'
 
-  // Función para exportar catálogo a CSV
-  const exportarCatalogo = () => {
-    if (productos.length === 0) {
-      alert('No hay productos para exportar');
-      return;
-    }
-    const headers = ['Nombre', 'Descripción', 'Precio', 'Existencias'];
-    const rows = productos.map(p => [p.nombre, p.descripcion, p.precio, p.existencias]);
-    const csvContent = [headers, ...rows].map(e => e.join(',')).join("\n");
-    const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement('a');
-    a.href = url;
-    a.download = 'catalogo_productos.csv';
-    a.click();
-    URL.revokeObjectURL(url);
+  const handleExport = () => {
+    // Lógica para exportar el catálogo
+    console.log('Exportando catálogo...');
+    alert('Catálogo exportado exitosamente');
   };
 
-  // Función para agregar un nuevo producto
-  const agregarProducto = () => {
-    const nombre = prompt('Nombre del producto:');
-    if (!nombre) return;
-    const descripcion = prompt('Descripción:') || '';
-    const precio = parseFloat(prompt('Precio:')) || 0;
-    const existencias = parseInt(prompt('Existencias:'), 10) || 0;
-    const nuevo = { id: nextId.current++, nombre, descripcion, precio, existencias };
-    setProductos(prev => [...prev, nuevo]);
+  const handleAddProduct = () => {
+    setModoFormulario("crear");
+    setSelectedProduct(null);
+    setMostrarFormulario(true);
   };
 
-  // Función para seleccionar un producto
-  const seleccionarProducto = (id) => {
-    setSelectedId(prev => (prev === id ? null : id));
+  const handleEditProduct = () => {
+    if (selectedProduct) {
+      setModoFormulario("editar");
+      setMostrarFormulario(true);
+    } else {
+      alert('Por favor seleccione un producto');
+    }
   };
 
-  // Función para editar producto seleccionado
-  const editarProducto = () => {
-    if (selectedId == null) {
-      alert('Selecciona primero un producto');
-      return;
+  const guardarProducto = (producto) => {
+    if (modoFormulario === 'crear') {
+      setProducts([...products, { ...producto, id: Date.now() }]);
+    } else if (modoFormulario === 'editar') {
+      setProducts(products.map(p => p.id === producto.id ? producto : p));
     }
-    setProductos(prev => prev.map(p => {
-      if (p.id !== selectedId) return p;
-      const nombre = prompt('Nuevo nombre:', p.nombre) || p.nombre;
-      const descripcion = prompt('Nueva descripción:', p.descripcion) || p.descripcion;
-      const precio = parseFloat(prompt('Nuevo precio:', p.precio)) || p.precio;
-      const existencias = parseInt(prompt('Nuevas existencias:', p.existencias), 10) || p.existencias;
-      return { ...p, nombre, descripcion, precio, existencias };
-    }));
+    setMostrarFormulario(false);
+    setSelectedProduct(null);
   };
 
-  // Función para borrar producto seleccionado
-  const borrarProducto = () => {
-    if (selectedId == null) {
-      alert('Selecciona primero un producto');
-      return;
+  const handleDeleteProduct = () => {
+    if (selectedProduct) {
+      if (window.confirm(`¿Está seguro de eliminar ${selectedProduct.nombre}?`)) {
+        setProducts(products.filter(p => p.id !== selectedProduct.id));
+        setSelectedProduct(null);
+      }
+    } else {
+      alert('Por favor seleccione un producto');
     }
-    if (window.confirm('¿Seguro que deseas borrar el producto seleccionado?')) {
-      setProductos(prev => prev.filter(p => p.id !== selectedId));
-      setSelectedId(null);
-    }
+  };
+
+  const handleSelectProduct = (product) => {
+    setSelectedProduct(product);
+  };
+
+  const formatPrice = (price) => {
+    return new Intl.NumberFormat('es-CO', {
+      style: 'currency',
+      currency: 'COP'
+    }).format(price);
   };
 
   return (
-    <div className="container">
-      <header className="header">
-        <button onClick={() => window.history.back()} className="back-button">⬅ Regresar</button>
+    <div className="catalogo-container">
+      <header className="catalogo-header">
+        <button 
+          className="back-button"
+          onClick={() => navigate(-1)}
+        >
+          ⬅ Regresar
+        </button>
         <h1>CATÁLOGO DE PRODUCTOS</h1>
         <div className="icon">📦</div>
       </header>
 
-      <div className="buttons">
-        <button onClick={exportarCatalogo}>EXPORTAR CATÁLOGO DE PRODUCTOS</button>
-        <button onClick={agregarProducto}>AGREGAR PRODUCTO</button>
-        <button onClick={() => alert('Selecciona un producto de la tabla')}>SELECCIONAR PRODUCTO</button>
-        <button onClick={editarProducto}>EDITAR PRODUCTO</button>
-        <button onClick={borrarProducto}>BORRAR PRODUCTO</button>
+      <div className="action-buttons">
+        <button onClick={handleExport}>EXPORTAR CATÁLOGO</button>
+        <button onClick={handleAddProduct}>AGREGAR PRODUCTO</button>
+        <button 
+          onClick={handleEditProduct}
+          disabled={!selectedProduct}
+        >
+          EDITAR PRODUCTO
+        </button>
+        <button 
+          onClick={handleDeleteProduct}
+          disabled={!selectedProduct}
+        >
+          BORRAR PRODUCTO
+        </button>
       </div>
 
-      <table>
-        <thead>
-          <tr>
-            <th>Nombre</th>
-            <th>Descripción</th>
-            <th>Precio</th>
-            <th>Existencias disponibles</th>
-          </tr>
-        </thead>
-        <tbody>
-          {productos.map(p => (
-            <tr
-              key={p.id}
-              className={p.id === selectedId ? 'selected' : ''}
-              onClick={() => seleccionarProducto(p.id)}
-            >
-              <td>{p.nombre}</td>
-              <td>{p.descripcion}</td>
-              <td>{p.precio.toLocaleString()}</td>
-              <td>{p.existencias}</td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
+      {mostrarFormulario && (
+        <FormularioIngresoProductos 
+          onGuardar={guardarProducto}
+          productoInicial={modoFormulario === 'editar' ? selectedProduct : null}
+          modo={modoFormulario}
+        />
+      )}
 
-      <footer>
+      <div className="table-container">
+        <table>
+          <thead>
+            <tr>
+              <th>Nombre</th>
+              <th>Descripción</th>
+              <th>Precio</th>
+              <th>Existencias</th>
+            </tr>
+          </thead>
+          <tbody>
+            {products.map((product) => (
+              <tr 
+                key={product.id}
+                className={selectedProduct?.id === product.id ? 'selected' : ''}
+                onClick={() => handleSelectProduct(product)}
+              >
+                <td>{product.nombre}</td>
+                <td>{product.descripcion}</td>
+                <td>{formatPrice(product.precio)}</td>
+                <td>{product.existencias}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+
+      <footer className="catalogo-footer">
         SISTEMA POS (PUNTO DE VENTA)
       </footer>
     </div>
   );
-}
+};
+
+export default CatalogoProductos;

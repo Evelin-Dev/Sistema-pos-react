@@ -1,0 +1,131 @@
+.reportes-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2rem;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  }
+  
+  header {
+    display: flex;
+    align-items: center;
+    margin-bottom: 2.5rem;
+    position: relative;
+  }
+  
+  .back-arrow {
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    cursor: pointer;
+    margin-right: 1rem;
+    color: #2c3e50;
+    transition: all 0.3s ease;
+    padding: 0.5rem;
+  }
+  
+  .back-arrow:hover {
+    color: #3498db;
+    transform: translateX(-3px);
+  }
+  
+  h1 {
+    font-size: 2rem;
+    color: #2c3e50;
+    margin: 0;
+  }
+  
+  .reportes-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+  }
+  
+  .reporte-item {
+    background: #ffffff;
+    border-radius: 12px;
+    padding: 1.5rem;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    cursor: pointer;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+    border: 1px solid #e0e0e0;
+  }
+  
+  .reporte-item:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+    border-color: #3498db;
+  }
+  
+  .reporte-item.loading {
+    background: #f8f9fa;
+    cursor: progress;
+  }
+  
+  .reporte-icon {
+    margin-right: 0.8rem;
+    font-size: 1.5rem;
+    vertical-align: middle;
+  }
+  
+  .reporte-item h2 {
+    font-size: 1.25rem;
+    margin: 0 0 0.75rem 0;
+    color: #2c3e50;
+    display: flex;
+    align-items: center;
+  }
+  
+  .reporte-item p {
+    margin: 0;
+    color: #7f8c8d;
+    font-size: 0.95rem;
+    line-height: 1.5;
+  }
+  
+  .loading-indicator {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: rgba(52, 152, 219, 0.1);
+    color: #3498db;
+    text-align: center;
+    padding: 0.5rem;
+    font-size: 0.9rem;
+    animation: pulse 1.5s infinite;
+  }
+  
+  @keyframes pulse {
+    0% { opacity: 0.6; }
+    50% { opacity: 1; }
+    100% { opacity: 0.6; }
+  }
+  
+  footer {
+    text-align: center;
+    padding: 1.5rem;
+    color: #7f8c8d;
+    font-size: 0.9rem;
+    border-top: 1px solid #eee;
+    margin-top: 2rem;
+  }
+  
+  /* Responsive Design */
+  @media (max-width: 768px) {
+    .reportes-grid {
+      grid-template-columns: 1fr;
+    }
+    
+    header {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+    
+    .back-arrow {
+      margin-bottom: 1rem;
+      margin-right: 0;
+    }
+  }

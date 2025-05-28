@@ -1,0 +1,187 @@
+.pos-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f5f5f5;
+    min-height: 100vh;
+  }
+ 
+  
+  .pos-header {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 10px;
+    margin-bottom: 20px;
+    background-color: #2c3e50;
+    color: white;
+    padding: 15px;
+    border-radius: 8px;
+    align-items: center;
+  }
+  
+  .header-item {
+    font-size: 1rem;
+    text-align: center;
+  }
+  
+  .close-btn {
+    grid-column: span 1;
+    padding: 8px 12px;
+    background-color: #e74c3c;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+  
+  .close-btn:hover {
+    background-color: #c0392b;
+  }
+  
+  .close-btn:disabled {
+    background-color: #95a5a6;
+    cursor: not-allowed;
+  }
+  
+  .client-section {
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    gap: 15px;
+    margin-bottom: 20px;
+  }
+  
+  .client-section input {
+    padding: 10px 15px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 1rem;
+  }
+  
+  .pos-table {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    margin-bottom: 20px;
+    background-color: white;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  }
+  
+  .table-header {
+    background-color: #34495e;
+    color: white;
+    padding: 12px 15px;
+    font-weight: bold;
+    text-align: center;
+  }
+  
+  .table-cell {
+    padding: 10px 15px;
+    border-bottom: 1px solid #eee;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .action-buttons {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 10px;
+    margin-bottom: 20px;
+  }
+  
+  .action-buttons button {
+    padding: 10px;
+    background-color: #3498db;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+  
+  .action-buttons button:hover {
+    background-color: #2980b9;
+  }
+  
+  .pos-footer {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 10px;
+    background-color: #2c3e50;
+    color: white;
+    padding: 15px;
+    border-radius: 8px;
+    align-items: center;
+  }
+  
+  .footer-item {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+  }
+  
+  .footer-item span:first-child {
+    font-size: 0.9rem;
+    opacity: 0.8;
+  }
+  
+  .footer-item span:last-child {
+    font-weight: bold;
+    font-size: 1.1rem;
+  }
+  
+  .client-btn, .sale-btn {
+    padding: 10px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+  
+  .client-btn {
+    background-color: #f39c12;
+    color: white;
+  }
+  
+  .client-btn:hover {
+    background-color: #d35400;
+  }
+  
+  .sale-btn {
+    background-color: #27ae60;
+    color: white;
+    font-weight: bold;
+  }
+  
+  .sale-btn:hover {
+    background-color: #219653;
+  }
+  
+  .sale-btn:disabled {
+    background-color: #95a5a6;
+    cursor: not-allowed;
+  }
+  
+  /* Responsive Design */
+  @media (max-width: 768px) {
+    .pos-header, .action-buttons, .pos-footer {
+      grid-template-columns: 1fr;
+    }
+    
+    .pos-table {
+      grid-template-columns: repeat(2, 1fr);
+    }
+    
+    .table-header:nth-child(n+3), 
+    .table-cell:nth-child(n+3) {
+      display: none;
+    }
+    
+    .client-section {
+      grid-template-columns: 1fr;
+    }
+  }

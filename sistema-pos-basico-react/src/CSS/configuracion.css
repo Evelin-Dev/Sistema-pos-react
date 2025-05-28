@@ -1,0 +1,98 @@
+.configuracion-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+    font-family: 'Arial', sans-serif;
+  }
+  
+  header {
+    display: flex;
+    align-items:center;
+    margin-bottom: 80px;
+  }
+  h1 { 
+    text-align: right;
+  }
+  
+  .back-arrow {
+    background: none;
+    border: none;
+    font-size: 24px;
+    cursor: pointer;
+    margin-right: 15px;
+    color: #2c3e50;
+    transition: transform 0.2s;
+  }
+  
+  .back-arrow:hover {
+    transform: translateX(-3px);
+  }
+  
+  h1 {
+    font-size: 28px;
+    color: #2c3e50;
+    margin: 0;
+  }
+  
+  .config-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 20px;
+    margin-bottom: 30px;
+  }
+  
+  .config-item {
+    background: white;
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+  
+  .config-item:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+  }
+  
+  .config-icon {
+    margin-right: 10px;
+    font-size: 24px;
+  }
+  
+  .config-item h2 {
+    font-size: 20px;
+    margin: 0 0 10px 0;
+    color: #2c3e50;
+    display: flex;
+    align-items: center;
+  }
+  
+  .config-item p {
+    margin: 0;
+    color: #7f8c8d;
+    font-size: 14px;
+  }
+  
+  footer {
+    text-align: center;
+    padding: 20px;
+    color: #7f8c8d;
+    font-size: 14px;
+  }
+  
+  /* Responsive */
+  @media (max-width: 768px) {
+    .config-grid {
+      grid-template-columns: 1fr;
+    }
+    
+    header {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+    
+    .back-arrow {
+      margin-bottom: 10px;
+    }
+  }
